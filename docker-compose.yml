@@ -1,0 +1,31 @@
+services:
+  # RabbitMQ - queue
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5672:5672"    # port from communication
+      - "15672:15672"  # access rabbitmq management plugin
+
+
+  # Django web server
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: web
+    command: >
+      bash -c "python manage.py runserver 0.0.0.0:8000
+      && python tsp_service/subscribe.py
+      && python tsp_service/publish.py"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbit
+    links:
+      - rabbit
