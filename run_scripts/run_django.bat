@@ -5,7 +5,7 @@ echo "After it, run '.\run_docker.bat' to continue..."
 
 start cmd.exe /C run_docker.bat
 
-cmd /k ".\venv\Scripts\activate.bat && pip install -r requirements.txt && python manage.py runserver"
+cmd /k "pip install -r requirements.txt && python manage.py runserver"
 
 
 pause

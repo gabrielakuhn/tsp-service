@@ -4,9 +4,9 @@ Gabriela Kuhn - Jan 2022
 
 Project process:
 - The start point of this project is a Django project using djangorestframework
-- The server can be running with run_django.bat and it connects to a RESTapi to post/get location information
+- The server can be running with run_django.bat or example.bat and it connects to a RESTapi to post/get location information
 - The Location Model include the fields "name, latitude, and longitude"
-- Check location api in http://127.0.0.1:8000/api/location
+- The location api can be checked in http://127.0.0.1:8000/api/location
 - Posting can be done via browser or api/requests/locationpost.py. Using file data_for_test.json you can input one or more location
 - The publish.py file connect to location endpoint to get data
 - publish.py publish a message with location data to subscribe.py file which receive the message and handled it inside of tsp service
@@ -15,13 +15,13 @@ Project process:
 - subscribe.py response to the message after the process with a route plan
 
 How to run?
-#1 - In the root folder run 'example.bat or example.sh or for linux'
+#1 - In the root folder run 'example.bat'
     -> it will raise a local server in django which can be checked in http://127.0.0.1:8000/api/location
-#2 - Also a second terminal will open at the same time to run a docker container with RabbitMQ
-#3 - Besides, a third terminal will open and after 5 seconds (timeframe necessary to wait RabbitMQ server initializer) this terminal will run 'run_sub.bat'
+    -> Also a second terminal will open at the same time to run a docker container with RabbitMQ (docker-compose)
+#2 - When both server are running open a third terminal and run '.\run_scripts\run_sub.bat' in the root folder
     -> it will access api/requests/locationpost.py api to post data inside of data_for_test.json file
     -> it will also Start Consuming messages from the queue
-#4 - After 10 seconds a new terminal will open and run 'run_pub.bat'
+#3 - Open a new terminal and run '.\run_scripts\run_pub.bat' in root folder
     -> it will get location api information and publish a message to subscribe
     -> check subscribe response in #3 terminal
     -> if you want to run publish again run .\run_scripts\run_pub.bat in root folder
@@ -29,7 +29,8 @@ How to run?
 
 Requirements:
 - Python 3.10
-- RabbitMQ Server and Erlang
+- Docker and docker-compose
+- a virtualenv venv
 Package             Version
 ------------------- ---------
 absl-py             1.0.0

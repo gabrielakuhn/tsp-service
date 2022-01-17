@@ -3,6 +3,6 @@ echo "Welcome - Gabriela Kuhn assigment - running Django localserver, RabbitMQ i
 echo "Check/Edit the location list in http://127.0.0.1:8000/api/location"
 
 start cmd.exe /C .\run_scripts\run_docker.bat
-cmd /k ".\venv\Scripts\activate.bat && pip install -r requirements.txt && python manage.py runserver"
+cmd /k "pip install -r requirements.txt && python manage.py runserver"
 
 pause
