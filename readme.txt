@@ -15,17 +15,27 @@ Project process:
 - subscribe.py response to the message after the process with a route plan
 
 How to run?
-#1 - In the root folder run 'example.bat'
+#1 - Create a Python venv and activate it
+#2 - Initialize docker
+#3 - run 'pip install -r requirements.txt'
+#4 - In the root folder run 'example.bat'
     -> it will raise a local server in django which can be checked in http://127.0.0.1:8000/api/location
     -> Also a second terminal will open at the same time to run a docker container with RabbitMQ (docker-compose)
-#2 - When both server are running open a third terminal and run '.\run_scripts\run_sub.bat' in the root folder
+
+Testing the application
+#5 - When both server are running open a third terminal and run '.\run_scripts\run_sub.bat' in the root folder
     -> it will access api/requests/locationpost.py api to post data inside of data_for_test.json file
     -> it will also Start Consuming messages from the queue
-#3 - Open a new terminal and run '.\run_scripts\run_pub.bat' in root folder
+#6 - Open a new terminal and run '.\run_scripts\run_pub.bat' in root folder
     -> it will get location api information and publish a message to subscribe
     -> check subscribe response in #3 terminal
     -> if you want to run publish again run .\run_scripts\run_pub.bat in root folder
 
+OR open 4 terminals, activate venv and directly run in each one in root folder:
+- 'python manage.py runserver' -> run django server
+- 'docker-compose up' -> compose rabbitMQ
+- 'python api/requests/locationpost.py && python tsp_service/subscribe.py' -> post locations and start listening publish
+- 'python tsp_service/publish.py' -> publish message
 
 Requirements:
 - Python 3.10
